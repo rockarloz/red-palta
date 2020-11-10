@@ -5,12 +5,14 @@ import {
   GoogleMap,
   Marker
 } from "react-google-maps";
-
+var latitude = 0
+var longitude = 1
+var lugares = [[19.23432, -99.32432],[19.34543, -99.78213]]
 const CustomSkinMap = withScriptjs(
-  withGoogleMap(() => (
+  withGoogleMap((props) => (
     <GoogleMap
-      defaultZoom={13}
-      defaultCenter={{ lat: 40.748817, lng: -73.985428 }}
+      defaultZoom={10}
+      defaultCenter={{ lat: lugares[0][0], lng:  lugares[0][1] }}
       defaultOptions={{
         scrollwheel: false,
         zoomControl: true,
@@ -76,18 +78,31 @@ const CustomSkinMap = withScriptjs(
         ]
       }}
     >
-      <Marker position={{ lat: 40.748817, lng: -73.985428 }} />
+        {/* { Object.keys(i.fields).map((item) => drawBar(item,i.fields ))} */}
+      {lugares.map((cor) =>  <Marker position={{ lat: cor[0], lng: cor[1] }} />)}
+     
     </GoogleMap>
   ))
 );
 
-export default function Maps() {
-  return (
-    <CustomSkinMap
-      googleMapURL="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"
-      loadingElement={<div style={{ height: `100%` }} />}
-      containerElement={<div style={{ height: `100vh` }} />}
-      mapElement={<div style={{ height: `100%` }} />}
-    />
-  );
+export default function Maps(props) {
+  latitude= props.latitude
+  longitude= props.longitude
+  lugares= props.lugares
+  if(lugares.length > 0) {
+    return (
+      <CustomSkinMap
+        googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyARX_gGuupYra82RFQis8c6RCZFPtrhjoU"
+        loadingElement={<div style={{ height: `10%` }} />}
+        containerElement={<div style={{ height: `100vh` }} />}
+        mapElement={<div style={{ height: `100%` }} />}
+        latitude={props.latitude}
+        longitude={props.longitude}
+      />
+    );
+  }
+  else{
+    return null
+  }
+  
 }
