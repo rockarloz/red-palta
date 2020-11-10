@@ -177,40 +177,40 @@ export default function Dashboard() {
     durations2 = 500;
 
   async function componentDidMount(){
-    
+
     const response = await getCountries();
-    
+
     setFields(response)
 
     var auxNit = []
     response.forEach(element => auxNit.push(element.fields['N-NO3 (Nitrogenos totales) PPM']));
     setNitrogenos(auxNit)
-    
+
     var auxMO = []
     response.forEach(element => auxMO.push(element.fields['M.O. (Materia organica) %']));
     setMo(auxMO)
-   
-    
+
+
 
     var locations = []
     response.forEach(element => locations.push([element.fields['Latitude'],element.fields['Longitude']]));
     setPuntos(locations)
     values.forEach( (value, index) => {
-      
-      
-      
+
+
+
       var ephimeralAud = []
       response.forEach(element => ephimeralAud.push(element.fields[value]));
       setData(valuesSet[index], ephimeralAud)
       // valuesSet[index](ephimeralAud)
-      // 
-      // 
+      //
+      //
     });
 
-    
+
   }
   function setData(receptor,_data){
-    
+
     receptor(_data)
   }
   useEffect(() => {
@@ -274,13 +274,13 @@ export default function Dashboard() {
   };
 
   function drawBar(a, datos){
-    
+
     // if(a !== "Ubicación" && a !== "Notes" && a !== "Latitude" && a !== "Longitude")
     if(values.includes(a))
     {
-      return( 
+      return(
         <CardBody>
-        
+
         <h4 className={classes.cardTitle}>{a}</h4>
         <BorderLinearProgress variant="determinate" value={datos[a]} />
         </CardBody>
@@ -291,14 +291,14 @@ export default function Dashboard() {
     //   debugger
     // })
 
-   
+
   //  })
   }
   function drawGrafica(el, i ){
     // return(
     //   <h1>{el}</h1>
     // )
-    
+
       if(valuesAr[i].length > 0 ){
         var auxChart = {
           data: {
@@ -306,7 +306,7 @@ export default function Dashboard() {
             series: [valuesAr[i]]
           }
         }
-      
+
         return(
           <GridItem xs={12} sm={12} md={4}>
           <Card chart>
@@ -345,7 +345,7 @@ export default function Dashboard() {
   function drawRecord(i){
   //   Object.keys(i.fields).forEach(function (item) {
   //    debugger
-   
+
   //  })
 
   if (fields.length !== 0 ){
@@ -359,7 +359,7 @@ export default function Dashboard() {
         {/* {  drawBar(i.fields)}  */}
         {/* <CardBody>
         {/* {  drawBar(i.fields)} */}
-  
+
         {/* <h1>carlow</h1>
         </CardBody> */}
         {/* <CardFooter chart>
@@ -369,12 +369,12 @@ export default function Dashboard() {
         </CardFooter> */}
         {/* {i.fields['Latitude']}
         {i.fields['Longitude']} */}
-    
+
       </Card>
     </GridItem>
       )
   }
-    
+
   }
   const classes = useStyles();
   return (
@@ -390,9 +390,9 @@ export default function Dashboard() {
                 {/* <Icon>content_copy</Icon> */}
                 <img src={rake} className='iconos-new'/>
               </CardIcon>
-              <p className={classes.cardCategory}>Suelo Trabajado</p>
+              <p className={classes.cardCategory}>Producción Kg</p>
               <h3 className={classes.cardTitle}>
-                25000 
+                2500
               </h3>
             </CardHeader>
             <CardFooter stats>
@@ -414,7 +414,7 @@ export default function Dashboard() {
                 <img src={molino} className='iconos-new'/>
                 {/* <Store /> */}
               </CardIcon>
-              <p className={classes.cardCategory}>Graneros</p>
+              <p className={classes.cardCategory}>Día de cultivo</p>
               <h3 className={classes.cardTitle}>245</h3>
             </CardHeader>
             <CardFooter stats>
@@ -432,8 +432,8 @@ export default function Dashboard() {
                 <img src={bag} className='iconos-new'/>
                 {/* <Icon>info_outline</Icon> */}
               </CardIcon>
-              <p className={classes.cardCategory}>Suelo Fertilizado</p>
-              <h3 className={classes.cardTitle}>75</h3>
+              <p className={classes.cardCategory}>Días desde última muestra</p>
+              <h3 className={classes.cardTitle}>35</h3>
             </CardHeader>
             <CardFooter stats>
               {/* <div className={classes.stats}>
@@ -450,8 +450,8 @@ export default function Dashboard() {
                 <img src={planta} className='iconos-new'/>
                 {/* <Accessibility /> */}
               </CardIcon>
-              <p className={classes.cardCategory}>Cultivos</p>
-              <h3 className={classes.cardTitle}>+24005</h3>
+              <p className={classes.cardCategory}>Cultivo</p>
+              <h3 className={classes.cardTitle}>Aguacate Hass</h3>
             </CardHeader>
             <CardFooter stats>
               {/* <div className={classes.stats}>
@@ -470,7 +470,7 @@ export default function Dashboard() {
     <Tab label="Nutrientes"  >  carlos </Tab>
     <Tab label="Comparativa"  >  carlos </Tab>
     <Tab label="Sugerencias"  >  carlos </Tab>
- 
+
   </Tabs>
 
   <TabPanel value={tabValue} index={0}>
@@ -482,7 +482,7 @@ export default function Dashboard() {
     </GridContainer>
       </TabPanel>
       <TabPanel value={tabValue} index={1}>
-        
+
       <GridContainer>
       {drawGrafica(values[0],0)}
       {drawGrafica(values[1],1)}
@@ -509,7 +509,7 @@ export default function Dashboard() {
             title="TO_DO List:"
             headerColor="primary"
             tabs={[
-            
+
               {
                 tabName: "tips",
                 tabIcon: Code,

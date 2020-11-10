@@ -39,7 +39,7 @@ import RTLPage from "views/RTLPage/RTLPage.js";
 const dashboardRoutes = [
   {
     path: "/dashboard",
-    name: "Rancho Palta",
+    name: "Zapotlan El Grande",
     rtlName: "لوحة القيادة",
     icon: Dashboard,
     component: DashboardPage,
