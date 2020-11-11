@@ -7,11 +7,11 @@ import {
 } from "react-google-maps";
 var latitude = 0
 var longitude = 1
-var lugares = [[19.23432, -99.32432],[19.34543, -99.78213]]
+var lugares = [[19.47, -103.23],[19.5, -103.38]]
 const CustomSkinMap = withScriptjs(
   withGoogleMap((props) => (
     <GoogleMap
-      defaultZoom={10}
+      defaultZoom={13}
       defaultCenter={{ lat: lugares[0][0], lng:  lugares[0][1] }}
       defaultOptions={{
         scrollwheel: false,
@@ -80,7 +80,7 @@ const CustomSkinMap = withScriptjs(
     >
         {/* { Object.keys(i.fields).map((item) => drawBar(item,i.fields ))} */}
       {lugares.map((cor) =>  <Marker position={{ lat: cor[0], lng: cor[1] }} />)}
-     
+
     </GoogleMap>
   ))
 );
@@ -104,5 +104,5 @@ export default function Maps(props) {
   else{
     return null
   }
-  
+
 }

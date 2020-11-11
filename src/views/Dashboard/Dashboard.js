@@ -407,7 +407,7 @@ export default function Dashboard() {
             </CardFooter>
           </Card>
         </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
+        <GridItem xs={6} sm={4} md={2}>
           <Card>
             <CardHeader color="success" stats icon>
               <CardIcon color="success">
@@ -425,7 +425,7 @@ export default function Dashboard() {
             </CardFooter>
           </Card>
         </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
+        <GridItem xs={6} sm={4} md={2}>
           <Card>
             <CardHeader color="danger" stats icon>
               <CardIcon color="danger">
@@ -443,7 +443,7 @@ export default function Dashboard() {
             </CardFooter>
           </Card>
         </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
+        <GridItem xs={6} sm={4} md={2}>
           <Card>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
@@ -462,7 +462,7 @@ export default function Dashboard() {
           </Card>
         </GridItem>
         <GridItem xs={12} sm={12} md={12}>
-        <Map latitude={19.6452} longitude={-99.234523} lugares= {puntos}></Map>
+        <Map latitude={19.40} longitude={-103.3} lugares= {puntos}></Map>
       </GridItem>
       </GridContainer>
 
