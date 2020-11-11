@@ -47,7 +47,7 @@ export default function Footer(props) {
               target="_blank"
               className={classes.a}
             >
-              Red Palta
+              Tlali
             </a>
             , made with love for a better World
           </span>

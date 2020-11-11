@@ -51,6 +51,9 @@ import bag from '../../assets/img/bag.png'
 import planta from '../../assets/img/planta.png'
 import rake from '../../assets/img/rake.png'
 import molino from '../../assets/img/molino.png'
+
+import ReactWeather from 'react-open-weather';
+import 'react-open-weather/lib/css/ReactWeather.css';
 const useStyles = makeStyles(styles);
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
@@ -115,6 +118,14 @@ export default function Dashboard() {
   const [morg, setMorg] = useState([]);
   const [puntos, setPuntos] = useState([]);
   const [pan, setPan] =  useState([]);
+
+  const [expectro1, setExpectro1] = useState([]);
+  const [expectro2, setExpectro2] = useState([]);
+  const [expectro3, setExpectro3] = useState([]);
+  const [expectro4, setExpectro4] = useState([]);
+  const [expectro5, setExpectro5] = useState([]);
+  const [expectro6, setExpectro6] = useState([]);
+  const [expectro7, setExpectro7] = useState([]);
   const valuesAr = [mg,
     mn,
     na,
@@ -149,6 +160,15 @@ export default function Dashboard() {
     setNitrogenos,
     setB,
     setMorg,
+  ]
+  const expectros = [
+    setExpectro1,
+    setExpectro2,
+    setExpectro3,
+    setExpectro4,
+    setExpectro5,
+    setExpectro6,
+    setExpectro7
   ]
   const values = ['Mg (Magnesio) PPM',
   'Mn (Manganeso) PPM',
@@ -197,14 +217,18 @@ export default function Dashboard() {
     setPuntos(locations)
     values.forEach( (value, index) => {
 
-
-
       var ephimeralAud = []
       response.forEach(element => ephimeralAud.push(element.fields[value]));
       setData(valuesSet[index], ephimeralAud)
-      // valuesSet[index](ephimeralAud)
-      //
-      //
+
+    });
+    //aca tendrias que recorrer el resultado del endpoint de la nueva tabla de airtable para recorrerlo
+    expectros.forEach( (value, index) => {
+
+      var ephimeralAud = []
+      response.forEach(element => ephimeralAud.push(element.fields[values[index]]));
+      setData(expectros[index], ephimeralAud)
+
     });
 
 
@@ -221,6 +245,21 @@ export default function Dashboard() {
     data: {
       labels: ["M", "T", "W", "T", "F", "S", "S"],
       series: [mo]
+    }
+  }
+  const lines = {
+    options: {
+      lineSmooth: Chartist.Interpolation.cardinal({
+        tension: 0
+      }),
+      low: 0,
+      high: 100, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+      chartPadding: {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
+      }
     }
   }
   const nitrogenosChart = {
@@ -273,6 +312,17 @@ export default function Dashboard() {
     }
   };
 
+  const lineData = {
+    labels: [1, 2, 3, 4, 5, 6, 7, 8],
+    series: [expectro1
+,expectro2
+,expectro3
+,expectro4
+,expectro5
+,expectro6
+,expectro7
+    ]
+  }
   function drawBar(a, datos){
 
     // if(a !== "Ubicación" && a !== "Notes" && a !== "Latitude" && a !== "Longitude")
@@ -379,10 +429,7 @@ export default function Dashboard() {
   const classes = useStyles();
   return (
     <div>
-
-
-      <GridContainer>
-
+   <GridContainer>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
             <CardHeader color="warning" stats icon>
@@ -407,7 +454,7 @@ export default function Dashboard() {
             </CardFooter>
           </Card>
         </GridItem>
-        <GridItem xs={6} sm={4} md={2}>
+        <GridItem xs={12} sm={4} md={3}>
           <Card>
             <CardHeader color="success" stats icon>
               <CardIcon color="success">
@@ -425,15 +472,15 @@ export default function Dashboard() {
             </CardFooter>
           </Card>
         </GridItem>
-        <GridItem xs={6} sm={4} md={2}>
+        <GridItem xs={12} sm={4} md={3}>
           <Card>
             <CardHeader color="danger" stats icon>
               <CardIcon color="danger">
                 <img src={bag} className='iconos-new'/>
                 {/* <Icon>info_outline</Icon> */}
               </CardIcon>
-              <p className={classes.cardCategory}>Días desde última muestra</p>
-              <h3 className={classes.cardTitle}>35</h3>
+              <p className={classes.cardCategory}>última muestra</p>
+              <h3 className={classes.cardTitle}>35 dias</h3>
             </CardHeader>
             <CardFooter stats>
               {/* <div className={classes.stats}>
@@ -443,7 +490,7 @@ export default function Dashboard() {
             </CardFooter>
           </Card>
         </GridItem>
-        <GridItem xs={6} sm={4} md={2}>
+        <GridItem xs={12} sm={4} md={3}>
           <Card>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
@@ -451,7 +498,7 @@ export default function Dashboard() {
                 {/* <Accessibility /> */}
               </CardIcon>
               <p className={classes.cardCategory}>Cultivo</p>
-              <h3 className={classes.cardTitle}>Aguacate Hass</h3>
+              <h3 className={classes.cardTitle}>Aguacate</h3>
             </CardHeader>
             <CardFooter stats>
               {/* <div className={classes.stats}>
@@ -465,11 +512,21 @@ export default function Dashboard() {
         <Map latitude={19.40} longitude={-103.3} lugares= {puntos}></Map>
       </GridItem>
       </GridContainer>
-
-      <Tabs value={tabValue} onChange={handleChange} aria-label="simple tabs example">
+      <GridContainer>
+      <GridItem xs={12} sm={12} md={12}>
+      <ReactWeather
+    forecast="today"  
+    apikey="dda76db89c6a5c5085956a4c2d810e7b"
+    type="geo"
+    lat="19.7036104"
+    lon="-103.4734768"
+  /></GridItem>
+  </GridContainer>
+    <Tabs value={tabValue} onChange={handleChange} aria-label="simple tabs example">
     <Tab label="Nutrientes"  >  carlos </Tab>
     <Tab label="Comparativa"  >  carlos </Tab>
     <Tab label="Sugerencias"  >  carlos </Tab>
+    <Tab label="Expectometro"  >  carlos </Tab>
 
   </Tabs>
 
@@ -500,6 +557,7 @@ export default function Dashboard() {
       {drawGrafica(values[13],13)}
       {drawGrafica(values[14],14)}
 
+
       </GridContainer>
       </TabPanel>
       <TabPanel value={tabValue} index={2}>
@@ -523,6 +581,30 @@ export default function Dashboard() {
               }
             ]}
           />
+        </GridItem>
+        </GridContainer>
+        </TabPanel>
+
+        <TabPanel value={tabValue} index={3}>
+      <GridContainer>
+      <GridItem xs={12} sm={12} md={12}>
+          <Card chart>
+            <CardHeader color={ColorGrav[0]}>
+              <ChartistGraph
+                className="ct-chart"
+                data={lineData}
+                type= 'Line'
+                options={lines.options}
+                listener={nitrogenosChart.animation}
+              />
+            </CardHeader>
+           
+            <CardFooter chart>
+              <div className={classes.stats}>
+                <AccessTime /> updated 4 minutes ago
+              </div>
+            </CardFooter>
+          </Card>
         </GridItem>
         </GridContainer>
         </TabPanel>
